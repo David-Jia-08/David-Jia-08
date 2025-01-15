@@ -17,9 +17,9 @@ path3 = np.load("path_3.npy")
 path4 = np.load("path_4.npy")
 
 ## Plot motion paths
-fig = plt.figure(figsize=(6,3))
+fig = plt.figure(figsize=(6,3),dpi=300)
 ax = fig.subplots()
-ax.set_title("Drone path")
+#ax.set_title("Drone path")
 ax.grid(True)
 ax.set_xlabel('x [m]')
 ax.set_ylabel('y [m]')
@@ -39,12 +39,12 @@ ax.plot(path3[:,1], path3[:,2], label="Drone 3")
 ax.plot(path4[:,1], path4[:,2], label="Drone 4")
 ax.axis('scaled')
 plt.legend()
-plt.title("Motion paths")
+#plt.title("Motion paths")
 plt.tight_layout()
 plt.savefig("results/path.png")
 
 # Plot Speed
-plt.figure(figsize=(6,3))
+plt.figure(figsize=(6,3),dpi=300)
 speeds = np.array([np.linalg.norm(path0[:,4:7], axis=1),
                    np.linalg.norm(path1[:,4:7], axis=1),
                    np.linalg.norm(path2[:,4:7], axis=1),
@@ -62,7 +62,7 @@ plt.tight_layout()
 plt.savefig("results/speed.png")
 
 # Plot distance
-plt.figure(figsize=(6,3))
+plt.figure(figsize=(6,3),dpi=300)
 
 # distances = np.array([np.linalg.norm(path0[:,9:13], axis=1),
 #                       np.linalg.norm(path1[:,9:13], axis=1),
@@ -73,7 +73,7 @@ distances = np.hstack([path0[:,10:13], path1[:,10:13], path2[:,10:13], path3[:,1
 plt.fill_between(path0[:,0], np.min(distances,axis=1), np.max(distances,axis=1), color="#1f77b4", label="Max/Min", alpha=0.3)
 plt.plot(path0[:,0], np.mean(distances,axis=1), 'b-', label="Average")
 plt.plot([path0[0,0], path0[-1,0]], [2*ROBOT_RADIUS, 2*ROBOT_RADIUS], 'k--', label="Safety radius")
-plt.plot([path0[0,0], path0[-1,0]], [DREF, DREF], 'g--', label="VREF") 
+plt.plot([path0[0,0], path0[-1,0]], [DREF, DREF], 'g--', label="DREF")
 plt.xlabel("Time (s)")
 plt.ylabel("Inter-agent distance (m)")
 plt.xlim([path0[0,0], path0[-1,0]])
@@ -84,7 +84,7 @@ plt.tight_layout()
 plt.savefig("results/distance.png")
 
 # Plot order
-plt.figure(figsize=(6,3))
+plt.figure(figsize=(6,3),dpi=300)
 headings = []
 for i in range(1,len(path0)):
     heading = path0[i,4:6]/np.linalg.norm(path0[i,4:6]) \
